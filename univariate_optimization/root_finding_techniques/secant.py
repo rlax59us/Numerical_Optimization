@@ -4,7 +4,7 @@ def secant_method(f, x0, x1, epsilon, max_iter):
     xn_process = []
     fxn_process = []
 
-    for n in range(1, max_iter):
+    for n in range(0, max_iter):
         xn_process.append(xn)
         fxn = f(xn)
         fxn_process.append(fxn)

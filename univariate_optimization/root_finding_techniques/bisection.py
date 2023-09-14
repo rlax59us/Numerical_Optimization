@@ -9,7 +9,7 @@ def bisection_method(f, a, b, epsilon, max_iter):
     if f(a)*f(b) >= 0:
         return None, xn_process, fxn_process
 
-    for n in range(1, max_iter):
+    for n in range(0, max_iter):
         xn = (an + bn) / 2
         xn_process.append(xn)
         fxn = f(xn)
