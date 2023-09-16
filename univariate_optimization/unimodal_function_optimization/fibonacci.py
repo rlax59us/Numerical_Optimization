@@ -30,8 +30,6 @@ def fibonacci_search(f, a, b, max_iter):
             a = an
         else:
             b = bn
-        fibo_2 = fibo_1
-        fibo_1 = fibo
     
     return a_process, b_process
 
