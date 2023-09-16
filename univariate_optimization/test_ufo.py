@@ -2,6 +2,7 @@ from unimodal_function_optimization.fibonacci import fibonacci_search
 from unimodal_function_optimization.golden_section import golden_section_search
 from visualization import ufo_visualization
 import numpy as np
+import time
 
 def problem1():
     f = lambda x: (x-10)**4 - 0.5*x**3 + (x+7)**2 - 15
@@ -14,7 +15,7 @@ def problem2():
     return f
 
 def problem3():
-    f = lambda x: 2*x**4 + 2*(x-10)**3 + 8 
+    f = lambda x: 2*np.cos(x)
 
     return f
 
@@ -24,11 +25,20 @@ if __name__ == "__main__":
     for i, problem in enumerate(problems):
         print("Problem "+str(i+1))
         f = problem
-
-        results = fibonacci_search(f=f, a=-40, b=40, max_iter=10)
+        ufo_visualization(f=f, a=[], b=[], problem=str(i+1), type='graph', range=40)
+        #fibonacci
+        f_start = time.time()
+        results = fibonacci_search(f=f, a=-40, b=40, max_iter=1000)
+        f_end = time.time()
+        print(f"{f_end - f_start:.5f} sec")
+        print(results[1][-1]-results[0][-1])
         ufo_visualization(f=f, a=results[0], b=results[1], problem=str(i+1), type='fibonacci', range=40)
-
-        results = golden_section_search(f=f, a=-40, b=40, max_iter=10)
+        #golden section
+        g_start = time.time()
+        results = golden_section_search(f=f, a=-40, b=40, max_iter=1000)
+        g_end = time.time()
+        print(f"{g_end - g_start:.5f} sec")
+        print(results[1][-1]-results[0][-1])
         ufo_visualization(f=f, a=results[0], b=results[1], problem=str(i+1), type='golden_section', range=40)
         
 

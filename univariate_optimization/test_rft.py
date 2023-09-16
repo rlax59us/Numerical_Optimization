@@ -36,6 +36,7 @@ if __name__ == "__main__":
     for i, problem in enumerate(problems):
         print("Problem "+str(i+1))
         f, df = problem
+        rft_visualization(f=f, xn=[], fxn=[], problem=str(i+1), type='graph')
         #Newton's method
         results = newtons_method(f=f, df=df, x0=10, epsilon=1e-10, max_iter=10000)
         rft_visualization(f=f, xn=results[1], fxn=results[2], problem=str(i+1), type='newtons')
@@ -57,6 +58,7 @@ if __name__ == "__main__":
         
     print("Problem 4")
     f, df = problem4()
+    rft_visualization(f=f, xn=[], fxn=[], problem=str(4), type='graph')
     #secant method
     results = secant_method(f=f, x0=5, x1=random.randrange(4,5), epsilon=1e-10, max_iter=10000)
     rft_visualization(f=f, xn=results[1], fxn=results[2], problem=str(4), type='secant')

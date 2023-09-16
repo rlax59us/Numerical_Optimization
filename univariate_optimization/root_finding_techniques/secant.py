@@ -18,3 +18,4 @@ def secant_method(f, x0, x1, epsilon, max_iter):
         xn = xn - fxn/dfxn
 
     return None, xn_process, fxn_process
+

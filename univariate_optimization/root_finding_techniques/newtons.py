@@ -15,3 +15,4 @@ def newtons_method(f, df, x0, epsilon, max_iter):
         xn = xn - fxn/dfxn
 
     return None, xn_process, fxn_process
+

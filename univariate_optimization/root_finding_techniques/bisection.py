@@ -25,3 +25,4 @@ def bisection_method(f, a, b, epsilon, max_iter):
             an = xn
 
     return None, xn_process, fxn_process
+
