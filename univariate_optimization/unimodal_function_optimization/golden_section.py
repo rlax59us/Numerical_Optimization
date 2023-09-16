@@ -18,7 +18,7 @@ def golden_section_search(f, a, b, max_iter):
         if a == an:
             an = bn
             bn = a + ratio*L
-        else:
+        elif b == bn:
             bn = an
             an = b - ratio*L
 
