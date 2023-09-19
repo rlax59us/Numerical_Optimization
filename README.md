@@ -7,4 +7,10 @@ Here's various optimization techniques from univariate to multivariate problems,
 
 # Optimization Techniques
 
-* Univariate Optimization
+* Univariate Optimization([code](https://github.com/rlax59us/Numerical_Optimization/tree/main/univariate_optimization))
+    * Root Finding Techniques(bisection method, newtons method, regular falsi method, secant method)
+    * Comparison Optimization Techniques(fibonacci search method, golden section search method)
+
+
+* Multivariate Optimization([code]())
+    * 

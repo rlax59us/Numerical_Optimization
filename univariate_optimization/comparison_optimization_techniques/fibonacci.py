@@ -17,7 +17,6 @@ def fibonacci_search(f, a, b, max_iter):
 
         L = b - a
         fibo = fibo_list[-(n+1)]
-        fibo_1 = fibo_list[-(n+2)]
         fibo_2 = fibo_list[-(n+3)]
 
         an = a + (fibo_2/fibo)*L

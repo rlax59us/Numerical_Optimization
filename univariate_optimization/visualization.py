@@ -34,5 +34,5 @@ def ufo_visualization(f, a, b, problem='1', type='fibonacci', range=10):
     plt.plot(a, fa, marker='o', markersize=5)
     plt.plot(b, fb, marker='v', markersize=5)
 
-    plt.savefig('univariate_optimization/results/ufo/'+ type + 'problem' + problem + '.png')
+    plt.savefig('univariate_optimization/results/cot/'+ type + 'problem' + problem + '.png')
     plt.cla()
