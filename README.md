@@ -5,12 +5,12 @@ Since generality is key point in AI models, it is important to understand numeri
 
 Here's various optimization techniques from univariate to multivariate problems, from unconstrained optimization techniques to constrained optimization techniques and some stochastic global optimization techniques.
 
-# Optimization Techniques
+## Optimization Techniques
 
 * Univariate Optimization([code](https://github.com/rlax59us/Numerical_Optimization/tree/main/univariate_optimization))
-    * Root Finding Techniques(bisection method, newtons method, regular falsi method, secant method)
-    * Comparison Optimization Techniques(fibonacci search method, golden section search method)
+    * Root Finding Techniques (Bisection method, Newton's method, Regular falsi method, Secant method)
+    * Comparison Optimization Techniques (Fibonacci search method, Golden section search method)
 
 
-* Multivariate Optimization([code]())
-    * 
+* Multivariate Optimization([code](https://github.com/rlax59us/Numerical_Optimization/tree/main/multivariate_optimization))
+    * Non-Smooth Function (Nelder-Mead method, Powell's method)
