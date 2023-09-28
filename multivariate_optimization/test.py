@@ -41,10 +41,10 @@ if __name__ == "__main__":
 
         initial_point = []
         for i in range(dim + 1):
-            initial_point.append((random.randrange(5, 10)*(-1 if random.random() > 0.5 else 1), random.randrange(5, 10)*(-1 if random.random() > 0.5 else 1)))
+            initial_point.append((random.randrange(50, 100)*(-1 if random.random() > 0.5 else 1), random.randrange(50, 100)*(-1 if random.random() > 0.5 else 1)))
         results = Nelder_Mead(f=f, initial=initial_point, dim=dim)
-        visualization(f=f, results=results, problem=str(number+1), type='nelder_mead')
+        visualization(f=f, results=results, problem=str(number+1), type='nelder_mead', r=100)
         results = Powells(f=f, df=df, initial=(initial_point[0][0], initial_point[0][1]), dim=dim)
-        visualization(f=f, results=results, problem=str(number+1), type='powells')
+        visualization(f=f, results=results, problem=str(number+1), type='powells', r=100)
 
     n=1

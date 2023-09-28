@@ -3,9 +3,17 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
 def visualization(f, results, problem='1', type='nelder_mead', r=10):
-    xn = 50
-    x = np.linspace(-r, r, 50)
-    y = np.linspace(-r, r, 50)
+    point_x = []
+    point_y = []
+    for result in results:
+        point_x.append(result[0])
+        point_y.append(result[1])
+    
+    r_x = max(point_x) if max(point_x) > r else r
+    r_y = max(point_y) if max(point_y) > r else r
+        
+    x = np.linspace(-r_x, r_x, 50)
+    y = np.linspace(-r_y, r_y, 50)
 
     z = np.zeros((len(x), len(y)))
     
@@ -18,11 +26,7 @@ def visualization(f, results, problem='1', type='nelder_mead', r=10):
     plt.figure(figsize=(5, 3.5))
     cp = plt.contourf(xx, yy, z, levels = np.linspace(z.reshape(-1, 1).min(), z.reshape(-1, 1).max(), 50))
     plt.colorbar(cp)
-    point_x = []
-    point_y = []
-    for result in results:
-        point_x.append(result[0])
-        point_y.append(result[1])
+    
     plt.plot(point_x, point_y, marker='o', markersize=2, color='r')
     plt.savefig('multivariate_optimization/results/' + type + 'problem' + problem + '.png')
     plt.cla()

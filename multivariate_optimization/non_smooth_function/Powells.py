@@ -1,5 +1,5 @@
 import sys
-sys.path.append('C:/Users/user/Desktop/Numerical_Optimization')
+sys.path.append('/Users/taehyeonkim/Dropbox/2023/Fall/Numerical Optimization/Numerical_Optimization')
 
 from univariate_optimization.comparison_optimization_techniques.golden_section import golden_section_search
 from univariate_optimization.comparison_optimization_techniques.seeking_bound import seeking_bound
@@ -7,7 +7,7 @@ import numpy as np
 import math
 
 def get_function(f, p, u):
-    new_f = lambda r: f(p[0] + r*u[0], p[1] + r*u[1])
+    new_f = lambda r: f(p[0]+r*u[0], p[1]+r*u[1])
 
     return new_f
 
@@ -25,18 +25,18 @@ def check_consecutive_estimates(f, x_k, x_k_1, threshold):
 
 def Powells(f, df, initial, dim=2, max_iter=1000, threshold=1e-15):
     i = 0
-    x = [initial]
-    u = np.identity(dim).tolist()
+    x = [initial] #all vectors
+    u = np.identity(dim).tolist() #direction
     
     while(1):
         p = [x[i]]
         for k in range(0,dim):
             new_f = get_function(f, p[k], u[k])
             a, b = seeking_bound(new_f, 0.0, 0.1)
-            results = golden_section_search(new_f, a, b, max_iter=1000)
-            x1, x2 = results[0][-1], results[1][-1]
-            f1, f2 = new_f(x1), new_f(x2)
-            r = x1 if f1 < f2 else x2
+            results = golden_section_search(new_f, a, b, max_iter=100)
+            r1, r2 = results[0][-1], results[1][-1]
+            f1, f2 = new_f(r1), new_f(r2)
+            r = r1 if f1 < f2 else r2
             p.append((p[k][0]+r*u[k][0], p[k][1]+r*u[k][1]))
 
         i += 1
@@ -44,15 +44,15 @@ def Powells(f, df, initial, dim=2, max_iter=1000, threshold=1e-15):
         for j in range(0, dim-1):
             u[j] = u[j+1]
 
-        u[dim-1] = [p[dim][0] - p[0][0], p[dim][1] - p[0][1]]
+        u[-1] = [p[-1][0] - p[0][0], p[-1][1] - p[0][1]]
 
-        new_f = get_function(f, p[0], u[dim-1])
+        new_f = get_function(f, p[0], u[-1])
         a, b = seeking_bound(new_f, 0.0, 0.1)
-        results = golden_section_search(new_f, a,b, max_iter=1000)
-        x1, x2 = results[0][-1], results[1][-1]
-        f1, f2 = new_f(x1), new_f(x2)
-        r = x1 if f1 < f2 else x2
-        x.append([p[0][0] + r*u[dim-1][0], p[0][1] + r*u[dim-1][1]])
+        results = golden_section_search(new_f, a,b, max_iter=100)
+        r1, r2 = results[0][-1], results[1][-1]
+        f1, f2 = new_f(r1), new_f(r2)
+        r = r1 if f1 < f2 else r2
+        x.append((p[0][0]+r*u[-1][0], p[0][1]+r*u[-1][1]))
         
         df_x_k = df(x[-1][0], x[-1][1])
         pk = p[-1]
