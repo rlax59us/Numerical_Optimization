@@ -2,6 +2,7 @@ from non_smooth_function.Nelder_Mead import Nelder_Mead
 from non_smooth_function.Powells import Powells
 from visualization import visualization, problem_visualization
 import random
+import time
 
 def problem1():
     f = lambda x, y: (x+3*y-5)**2 +(3*x+y-7)**2 
@@ -42,7 +43,13 @@ if __name__ == "__main__":
         initial_point = []
         for i in range(dim + 1):
             initial_point.append((random.randrange(50, 100)*(-1 if random.random() > 0.5 else 1), random.randrange(50, 100)*(-1 if random.random() > 0.5 else 1)))
+        n_start = time.time()
         results = Nelder_Mead(f=f, initial=initial_point, dim=dim)
+        n_end = time.time()
+        print(f"{n_end - n_start:.5f} sec")
         visualization(f=f, results=results, problem=str(number+1), type='nelder_mead', r=100)
+        p_start = time.time()
         results = Powells(f=f, df=df, initial=(initial_point[0][0], initial_point[0][1]), dim=dim)
+        p_end = time.time()
+        print(f"{p_end - p_start:.5f} sec")
         visualization(f=f, results=results, problem=str(number+1), type='powells', r=100)
