@@ -1,8 +1,7 @@
 from non_smooth_function.Nelder_Mead import Nelder_Mead
 from non_smooth_function.Powells import Powells
-from visualization import visualization
+from visualization import visualization, problem_visualization
 import random
-import math
 
 def problem1():
     f = lambda x, y: (x+3*y-5)**2 +(3*x+y-7)**2 
@@ -38,6 +37,7 @@ if __name__ == "__main__":
     for number, problem in enumerate(problems):
         print("Problem "+str(number+1))
         f, df = problem
+        problem_visualization(f=f, problem=str(number+1), r=100)
 
         initial_point = []
         for i in range(dim + 1):
@@ -46,5 +46,3 @@ if __name__ == "__main__":
         visualization(f=f, results=results, problem=str(number+1), type='nelder_mead', r=100)
         results = Powells(f=f, df=df, initial=(initial_point[0][0], initial_point[0][1]), dim=dim)
         visualization(f=f, results=results, problem=str(number+1), type='powells', r=100)
-
-    n=1

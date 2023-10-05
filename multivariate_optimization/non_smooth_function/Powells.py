@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/Users/taehyeonkim/Dropbox/2023/Fall/Numerical Optimization/Numerical_Optimization')
+sys.path.append('C:/Users/user/Desktop/Numerical_Optimization')
 
 from univariate_optimization.comparison_optimization_techniques.golden_section import golden_section_search
 from univariate_optimization.comparison_optimization_techniques.seeking_bound import seeking_bound
@@ -32,7 +32,7 @@ def Powells(f, df, initial, dim=2, max_iter=1000, threshold=1e-15):
         p = [x[i]]
         for k in range(0,dim):
             new_f = get_function(f, p[k], u[k])
-            a, b = seeking_bound(new_f, 0.0, 0.1)
+            a, b = seeking_bound(new_f, p[k][0], 0.1)
             results = golden_section_search(new_f, a, b, max_iter=100)
             r1, r2 = results[0][-1], results[1][-1]
             f1, f2 = new_f(r1), new_f(r2)
@@ -47,7 +47,7 @@ def Powells(f, df, initial, dim=2, max_iter=1000, threshold=1e-15):
         u[-1] = [p[-1][0] - p[0][0], p[-1][1] - p[0][1]]
 
         new_f = get_function(f, p[0], u[-1])
-        a, b = seeking_bound(new_f, 0.0, 0.1)
+        a, b = seeking_bound(new_f, p[0][0], 0.1)
         results = golden_section_search(new_f, a,b, max_iter=100)
         r1, r2 = results[0][-1], results[1][-1]
         f1, f2 = new_f(r1), new_f(r2)

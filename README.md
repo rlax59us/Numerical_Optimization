@@ -14,3 +14,4 @@ Here's various optimization techniques from univariate to multivariate problems,
 
 * Multivariate Optimization([code](https://github.com/rlax59us/Numerical_Optimization/tree/main/multivariate_optimization))
     * Non-Smooth Function (Nelder-Mead method, Powell's method)
+    * Gradient-based Method (Steepest Descent, Newton's mehtod, Two Quasi Newton's method)
