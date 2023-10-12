@@ -68,10 +68,16 @@ if __name__ == "__main__":
         print("Problem "+str(number+1))
         f, df, d2f = problem
         given_initial_point = (1.2, 1.2)
-        other_initial_point = (-2, 2)
         problem_visualization(f=f, problem=str(number+1), method='gbm', r=2)
         print(given_initial_point)
         do_experiment(f=f, df=df, d2f=d2f, number=number, initial_point=given_initial_point)
+        other_initial_point = (-2, 2)
+        print(other_initial_point)
+        do_experiment(f=f, df=df, d2f=d2f, number=number, initial_point=other_initial_point)
+        other_initial_point = (-2, -2)
+        print(other_initial_point)
+        do_experiment(f=f, df=df, d2f=d2f, number=number, initial_point=other_initial_point)
+        other_initial_point = (2, -2)
         print(other_initial_point)
         do_experiment(f=f, df=df, d2f=d2f, number=number, initial_point=other_initial_point)
 

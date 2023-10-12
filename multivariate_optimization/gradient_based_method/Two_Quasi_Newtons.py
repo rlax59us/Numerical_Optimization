@@ -13,7 +13,7 @@ def BFGS(Bk, yk, sk):
     else:
         return Bk
 
-def Quasi_newtons(f, df, d2f, initial, ak=5e-5, max_iter=100000, type='SR1' ,threshold=1e-15):
+def Quasi_newtons(f, df, d2f, initial, ak=5e-5, max_iter=100000, type='SR1' ,threshold=1e-10):
     i = 0
     x = [initial]
     b = []
