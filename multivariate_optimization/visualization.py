@@ -61,27 +61,28 @@ def gbm_visualization(f, results, problem='1', type='nelder_mead', r=10):
     cb.remove()
     plt.cla()
 
-def summarize(array):
+def summarize(array, interval):
     x=[]
     y=[]
     for i in range(len(array)):
-        if i %10 == 0:
+        if i % interval == 0:
             x.append(i)
             y.append(array[i])
 
     return x, y
 
-def gbm_function_value_visualization(sd, nt, sr1, bfgs, problem='1'):
-    x, y = summarize(sd)
+def gbm_function_value_visualization(sd, nt, sr1, bfgs, problem='1', type=''):
+    result_len = max(len(sd), len(nt), len(sr1), len(bfgs))
+    x, y = summarize(sd, int(result_len/25))
     plt.plot(x, y, label='Steepest Descent', marker='o')
-    x, y = summarize(nt)
+    x, y = summarize(nt, int(result_len/25))
     plt.plot(x, y, label='Newtons', marker='v')
-    x, y = summarize(sr1)
+    x, y = summarize(sr1, int(result_len/25))
     plt.plot(x, y, label='Quasi_SR1', marker='s')
-    x, y = summarize(bfgs)
+    x, y = summarize(bfgs, int(result_len/25))
     plt.plot(x, y, label='Quasi_BFGS', marker='*')
     plt.legend()
-    plt.savefig('multivariate_optimization/results/gbm/' + 'function_value_problem' + problem + '.png')
+    plt.savefig('multivariate_optimization/results/gbm/' + 'function_value_problem' + problem + type +'.png')
     plt.cla()
 
 def problem_visualization(f, problem='1', method = 'nsf', r=10):

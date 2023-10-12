@@ -58,7 +58,7 @@ def do_experiment(f, df, d2f, number, initial_point):
     gbm_visualization(f=f, results=results, problem=str(number+1), type='quasi_newtons_bfgs'+strxy, r=5)
     end = time.time()
     print("BFGS: ", end-start)
-    gbm_function_value_visualization(sd=sd_fvalues, nt=nt_fvalues, sr1=sr1_fvalues, bfgs=bfgs_fvalues, problem=str(number+1))
+    gbm_function_value_visualization(sd=sd_fvalues, nt=nt_fvalues, sr1=sr1_fvalues, bfgs=bfgs_fvalues, problem=str(number+1), type=strxy)
 
 if __name__ == "__main__":
     problems = [problem1(), problem2(), problem3()]
@@ -68,9 +68,11 @@ if __name__ == "__main__":
         print("Problem "+str(number+1))
         f, df, d2f = problem
         given_initial_point = (1.2, 1.2)
-        other_initial_point = (-2, -2)
+        other_initial_point = (-2, 2)
         problem_visualization(f=f, problem=str(number+1), method='gbm', r=2)
+        print(given_initial_point)
         do_experiment(f=f, df=df, d2f=d2f, number=number, initial_point=given_initial_point)
+        print(other_initial_point)
         do_experiment(f=f, df=df, d2f=d2f, number=number, initial_point=other_initial_point)
 
         
