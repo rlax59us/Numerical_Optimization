@@ -13,7 +13,7 @@ def BFGS(Bk, yk, sk):
     else:
         return Bk
 
-def Quasi_newtons(f, df, d2f, initial, ak=5e-5, max_iter=100000, type='SR1' ,threshold=1e-10):
+def Quasi_newtons(f, df, d2f, initial, ak=5e-5, max_iter=100000, type='SR1' ,threshold=1e-15):
     i = 0
     x = [initial]
     b = []
@@ -27,7 +27,8 @@ def Quasi_newtons(f, df, d2f, initial, ak=5e-5, max_iter=100000, type='SR1' ,thr
 
     while(1):
         gradient = df(x[i][0], x[i][1])
-        pk = -np.dot(b[i], gradient)
+        magnitude = np.linalg.norm(np.dot(b[i], gradient))
+        pk = -np.dot(b[i], gradient) / magnitude
         x.append((x[i][0] + ak * pk[0], x[i][1] + ak * pk[1]))
         fvalues.append(f(x[i+1][0], x[i+1][1]))
         gradient_after = df(x[i+1][0], x[i+1][1])

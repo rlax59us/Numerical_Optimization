@@ -7,7 +7,8 @@ def Steepest_Descent(f, df, d2f, initial, ak=5e-5, max_iter=100000, threshold=1e
 
     while(1):
         direction = df(x[i][0], x[i][1])
-        pk = -np.array(direction)
+        magnitude = np.linalg.norm(direction)
+        pk = -np.array(direction) / magnitude
         x.append((x[i][0] + ak * pk[0], x[i][1] + ak * pk[1]))
         fvalues.append(f(x[i+1][0], x[i+1][1]))
         i += 1

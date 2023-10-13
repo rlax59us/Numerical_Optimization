@@ -12,7 +12,8 @@ def Newtons(f, df, d2f, initial, ak=5e-5, max_iter=100000, threshold=1e-15):
             hessian = d2f
         inverse_hessian = np.linalg.inv(hessian)
         gradient = df(x[i][0], x[i][1])
-        pk = -np.dot(inverse_hessian, gradient)
+        magnitude = np.linalg.norm(np.dot(inverse_hessian, gradient))
+        pk = -np.dot(inverse_hessian, gradient)/magnitude        
         x.append((x[i][0] + ak * pk[0], x[i][1] + ak * pk[1]))
         fvalues.append(f(x[i+1][0], x[i+1][1]))
         i += 1
