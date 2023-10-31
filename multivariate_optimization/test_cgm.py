@@ -1,7 +1,6 @@
 from conjugate_gradient_method.linear import LinearCG
 from conjugate_gradient_method.nonlinear import NonLinearCG
-from visualization import problem_visualization, cgm_visualization, cgm_function_value_visualization
-import time
+from visualization import cgm_visualization, cgm_function_value_visualization
 
 def problem1():
     f = lambda x, y: (x+3*y-5)**2 +(3*x+y-7)**2 
@@ -38,23 +37,19 @@ if __name__ == "__main__":
     f, f_A, f_b = problem1()
     results, linear_fvalues = LinearCG(f=f, f_A=f_A, f_b=f_b, initial=initial_point)
     cgm_visualization(f=f, results=results, problem=str(1), type='linear', r=5)
-
+    initial_point = (-1.2, -1.2)
     for number, problem in enumerate(problems):
         print("Problem "+str(number+2))
         f, df, d2f = problem
         print('FR')
         results, fr_fvalues = NonLinearCG(f=f, df=df, d2f=d2f, type='FR', initial=initial_point)
-        cgm_visualization(f=f, results=results, problem=str(number+2), type='FR', r=5)
+        cgm_visualization(f=f, results=results, problem=str(number+2), type='FR', r=1)
         print('PR')
         results, pr_fvalues = NonLinearCG(f=f, df=df, d2f=d2f, type='PR', initial=initial_point)
-        cgm_visualization(f=f, results=results, problem=str(number+2), type='PR', r=5)
+        cgm_visualization(f=f, results=results, problem=str(number+2), type='PR', r=1)
         print('HS')
         results, hs_fvalues = NonLinearCG(f=f, df=df, d2f=d2f, type='HS', initial=initial_point)
-        cgm_visualization(f=f, results=results, problem=str(number+2), type='HS', r=5)
+        cgm_visualization(f=f, results=results, problem=str(number+2), type='HS', r=1)
         cgm_function_value_visualization(fr=fr_fvalues, hs=hs_fvalues, pr=pr_fvalues, problem=str(number+2), type='')
-
-
-        
-        
         
         

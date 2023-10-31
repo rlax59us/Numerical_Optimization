@@ -1,87 +1,80 @@
+#based on https://github.com/minrk/scipy-1/blob/master/scipy/optimize/linesearch.py
 import numpy as np
 
-def phi(func, x_k, p_k, alpha):
-    x_k.resize(len(x_k),1)
-    p_k.resize(len(p_k),1)
-    x_kn = x_k + alpha * p_k
-    myphi = func(x_kn[0], x_kn[1])
-    return myphi
+def phi(f, xk, pk, alpha):
+    x_kn = xk + alpha*pk
+    value = f(x_kn[0], x_kn[1])
+
+    return value
     
-def der_phi(jac, x_k, p_k, alpha):
-    N = len(x_k)
-    x_k.resize(N,1)
-    p_k.resize(N,1)
-    arg = (x_k + alpha * p_k).flatten()
-    dphi = np.matmul( jac(arg[0], arg[1]), p_k)
-    return dphi
+def der_phi(df, xk, pk, alpha):
+    x_kn = xk + alpha*pk
+    value = np.dot(df(x_kn[0], x_kn[1]), pk)
+    
+    return value
 
-def zoom(alpha_lo, alpha_hi, func, jac, x_k, p_k, c1, c2, maxIter=100, tol = 1e-8):
-    if alpha_lo > alpha_hi:
-        temp = alpha_lo
-        alpha_lo = alpha_hi 
-        alpha_hi = temp
+def zoom(alpha_i, alpha_in, f, df, xk, pk, c1, c2, max_iter=100, tol=1e-8):
+    if alpha_i > alpha_in:
+        temp = alpha_i
+        alpha_i = alpha_in 
+        alpha_in = temp
+
     j=0
-    while j < maxIter:
-        alpha_j = (alpha_hi + alpha_lo)/2
 
-        # Calculate required terms
-        phi_j = phi(func,x_k,p_k,alpha_j)
-        phi_prime_0 = der_phi(jac, x_k, p_k, 0)
-        phi_0 = phi(func,x_k,p_k, 0) 
-        phi_lo = phi(func,x_k,p_k,alpha_lo)
+    while j < max_iter:
+        alpha_j = (alpha_in + alpha_i)/2
 
-        if abs(alpha_hi - alpha_lo) < tol:
+        phi_j = phi(f, xk, pk, alpha_j)
+        der_phi_0 = der_phi(df, xk, pk, 0)
+        phi_0 = phi(f, xk, pk, 0) 
+        phi_lo = phi(f, xk, pk, alpha_i)
+
+        if abs(alpha_in - alpha_i) < tol:
             return alpha_j
-            print('Line search stopped because the interval became to small. Return alpha_j.')
 
-        if phi_j > (phi_0 + c1 * alpha_j * phi_prime_0) or phi_j >= phi_lo:
-            alpha_hi = alpha_j
+        if phi_j > (phi_0 + c1 * alpha_j * der_phi_0) or phi_j >= phi_lo:
+            alpha_in = alpha_j
         else:
-            # alpha_j satisfies sufficient decrease condition
-            phi_prime_j = der_phi(jac, x_k, p_k, alpha_j)
+            der_phi_j = der_phi(df, xk, pk, alpha_j)
             
-            if abs(phi_prime_j) <= -c2*phi_prime_0:
-                # alpha_j satisfies strong curvature condition
+            if abs(der_phi_j) <= -c2*der_phi_0:
                 return alpha_j
 
-            if phi_prime_j * (alpha_hi - alpha_lo) >= 0:
-                alpha_hi = alpha_lo
+            if der_phi_j * (alpha_in - alpha_i) >= 0:
+                alpha_in = alpha_i
             
-            alpha_lo = alpha_j
+            alpha_i = alpha_j
         j+=1
-    print("zoom failed to converge")
-    return alpha_j # If convergence fails
+    
+    return alpha_j #converge failed
 
-def generate_alpha(func, jac, x_k, p_k, alpha_max=1e-3, c1=1e-3, c2=0.9, maxiter=1000):
-    alphas = [0, 0.9*alpha_max]
-    i = 1
+def generate_alpha(f, df, xk, pk, max_value=1e-3, c1=1e-3, c2=0.9, max_iter=1000):
+    alpha = [0, 0.9*max_value]
+    i = 0
 
-    while i < maxiter:
-        x_k = np.array(x_k)
-        # Calculate required terms
-        phi_i = phi(func,x_k,p_k,alphas[i])
-        phi_i_1 = phi(func,x_k,p_k,alphas[i-1])
-        phi_prime_0 = der_phi(jac,x_k,p_k, 0)
-        phi_0 = phi(func,x_k,p_k, 0) + c1 * alphas[i] * phi_prime_0
+    while i < max_iter:
+        xk = np.array(xk)
+
+        phi_in = phi(f,xk,pk,alpha[i+1])
+        phi_i = phi(f,xk,pk,alpha[i])
+        der_phi_0 = der_phi(df,xk,pk, 0)
+        phi_0 = phi(f,xk,pk, 0) + c1 * alpha[i+1] * der_phi_0
         
-        if phi_i > phi_0 or (phi_i >= phi_i_1 and i > 1):
-            a_star = zoom(alphas[i-1],alphas[i],func, jac, x_k, p_k, c1, c2)
-            #print('Linesearch found alpha*: ', a_star)
-            return a_star
-        phi_prime_i = der_phi(jac,x_k,p_k, alphas[i])
+        if phi_in > phi_0 or (phi_in >= phi_i and i > 0):
+            alpha_star = zoom(alpha[i],alpha[i+1],f, df, xk, pk, c1, c2)
+            return alpha_star
+        der_phi_in = der_phi(df,xk,pk, alpha[i+1])
         
-        if abs(phi_prime_i) <= -c2*phi_prime_0:
-            a_star = alphas[i]
-            #print('Linesearch found alpha*: ', a_star)
-            return a_star
+        if abs(der_phi_in) <= -c2*der_phi_0:
+            alpha_star = alpha[i+1]
+            return alpha_star
 
-        if phi_prime_i >= 0:
-            a_star = zoom(alphas[i],alphas[i-1],func, jac, x_k, p_k, c1, c2)
-            #print('Linesearch found alpha*: ', a_star)
-            return a_star
+        if der_phi_in >= 0:
+            alpha_star = zoom(alpha[i+1],alpha[i],f, df, xk, pk, c1, c2)
+            return alpha_star
 
-        # Update alpha_i and go again
-        alphas.append(min(2*alphas[i], alpha_max))
+        alpha.append(min(2*alpha[i+1], max_value))
         i+=1
 
-    return 0
+    return 0 #converge failed
+

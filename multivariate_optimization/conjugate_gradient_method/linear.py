@@ -1,6 +1,6 @@
 import numpy as np
 
-def LinearCG(f, f_A, f_b, initial, alpha=5e-5, max_iter=100000,threshold=1e-10):
+def LinearCG(f, f_A, f_b, initial, alpha=5e-5, max_iter=100000,threshold=1e-15):
     k = 0
     x = [initial]
     fvalues = [f(initial[0], initial[1])]

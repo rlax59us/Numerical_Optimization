@@ -69,16 +69,16 @@ def cgm_visualization(f, results, problem='1', type='linear', r=10):
         point_y.append(result[1])
     
     if max(point_x) > r:
-        r_x = max(point_x)
+        r_x = max(point_x) + 0.5
     elif np.abs(min(point_x)) > r:
-        r_x = np.abs(min(point_x))
+        r_x = np.abs(min(point_x)) + 0.5
     else: 
         r_x = r
 
     if max(point_y) > r:
-        r_y = max(point_y)
+        r_y = max(point_y) + 0.5
     elif np.abs(min(point_y)) > r:
-        r_y = np.abs(min(point_y))
+        r_y = np.abs(min(point_y)) + 0.5
     else: 
         r_y = r
         

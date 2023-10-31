@@ -17,8 +17,7 @@ def NonLinearCG(f, df, d2f, initial, max_iter=100, type='FR' ,threshold=1e-15):
     p = [-1*np.array(df(initial[0], initial[1]))]
     
     while(df(x[k][0], x[k][1]) != 0):
-        #alpha = generate_alpha(f, df, x[k], p[k])
-        alpha = generate_alpha(func=f, jac=df, x_k=x[k], p_k=p[k].copy())
+        alpha = generate_alpha(f=f, df=df, xk=x[k], pk=p[k].copy())
         x.append(x[k] + alpha*p[k])
         fvalues.append(f(x[k+1][0], x[k+1][1]))
 
@@ -36,3 +35,4 @@ def NonLinearCG(f, df, d2f, initial, max_iter=100, type='FR' ,threshold=1e-15):
             return x, fvalues
         if k >= max_iter:
             return x, fvalues
+        
