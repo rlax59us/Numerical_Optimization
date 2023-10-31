@@ -61,6 +61,47 @@ def gbm_visualization(f, results, problem='1', type='nelder_mead', r=10):
     cb.remove()
     plt.cla()
 
+def cgm_visualization(f, results, problem='1', type='linear', r=10):
+    point_x = []
+    point_y = []
+    for result in results:
+        point_x.append(result[0])
+        point_y.append(result[1])
+    
+    if max(point_x) > r:
+        r_x = max(point_x)
+    elif np.abs(min(point_x)) > r:
+        r_x = np.abs(min(point_x))
+    else: 
+        r_x = r
+
+    if max(point_y) > r:
+        r_y = max(point_y)
+    elif np.abs(min(point_y)) > r:
+        r_y = np.abs(min(point_y))
+    else: 
+        r_y = r
+        
+    x = np.linspace(-r_x, r_x, 50)
+    y = np.linspace(-r_y, r_y, 50)
+
+    z = np.zeros((len(x), len(y)))
+    
+    for i in range(50):
+        for j in range(50):
+            z[i,j] = f(x[i], y[j])
+
+    xx, yy = np.meshgrid(x, y)
+
+    plt.figure(figsize=(5, 3.5))
+    cp = plt.contourf(xx, yy, z, levels = np.linspace(z.reshape(-1, 1).min(), z.reshape(-1, 1).max(), 50))
+    cb = plt.colorbar(cp)
+    
+    plt.plot(point_x, point_y, marker='o', markersize=2, color='r')
+    plt.savefig('multivariate_optimization/results/cgm/' + type + 'problem' + problem + '.png')
+    cb.remove()
+    plt.cla()
+
 def summarize(array, interval):
     x=[]
     y=[]
@@ -83,6 +124,18 @@ def gbm_function_value_visualization(sd, nt, sr1, bfgs, problem='1', type=''):
     plt.plot(x, y, label='Quasi_BFGS', marker='*')
     plt.legend()
     plt.savefig('multivariate_optimization/results/gbm/' + 'function_value_problem' + problem + type +'.png')
+    plt.cla()
+
+def cgm_function_value_visualization(fr, hs, pr, problem='1', type=''):
+    result_len = max(len(fr), len(hs), len(pr))
+    x, y = summarize(fr, int(result_len/25))
+    plt.plot(x, y, label='cg_fr', marker='o', markersize=8)
+    x, y = summarize(hs, int(result_len/25))
+    plt.plot(x, y, label='cg_hs', marker='v', markersize=8)
+    x, y = summarize(pr, int(result_len/25))
+    plt.plot(x, y, label='cg_pr', marker='s', markersize=4)
+    plt.legend()
+    plt.savefig('multivariate_optimization/results/cgm/' + 'function_value_problem' + problem + type +'.png')
     plt.cla()
 
 def problem_visualization(f, problem='1', method = 'nsf', r=10):
