@@ -33,7 +33,7 @@ def problem3():
 
 if __name__ == "__main__":
     problems = [problem2(), problem3()]
-    initial_point = (4, 4)
+    initial_point = (1.2, 1.2)
     print("Problem "+str(1))
     f, f_A, f_b = problem1()
     results, linear_fvalues = LinearCG(f=f, f_A=f_A, f_b=f_b, initial=initial_point)

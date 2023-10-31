@@ -53,26 +53,6 @@ def zoom(alpha_lo, alpha_hi, func, jac, x_k, p_k, c1, c2, maxIter=100, tol = 1e-
     return alpha_j # If convergence fails
 
 def generate_alpha(func, jac, x_k, p_k, alpha_max=1e-3, c1=1e-3, c2=0.9, maxiter=1000):
-    '''
-    # Define parameters
-    rho = 0.9
-    alpha = alpha_max; 
-    k=0
-
-    #Compute f, grad f at x_k
-    f_k = func(x_k[0], x_k[1])
-    df_k = jac(x_k[0], x_k[1])
-
-    x_kn = x_k + alpha*p_k
-
-    # Backtracking linesearch for computing step length
-    while func(x_kn[0], x_kn[1]) > ( f_k + c1 * alpha * np.dot(df_k, p_k) ) and k < maxiter:
-        alpha = rho*alpha
-        k+=1
-    
-    return alpha
-
-    '''
     alphas = [0, 0.9*alpha_max]
     i = 1
 
