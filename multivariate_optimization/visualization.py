@@ -126,6 +126,42 @@ def gbm_function_value_visualization(sd, nt, sr1, bfgs, problem='1', type=''):
     plt.savefig('multivariate_optimization/results/gbm/' + 'function_value_problem' + problem + type +'.png')
     plt.cla()
 
+def split_parameter(parameter):
+    a = []
+    b = []
+    c = []
+    d = []
+    for i in parameter:
+        a.append(i[0])
+        b.append(i[1])
+        c.append(i[2])
+        d.append(i[3])
+    
+    return a,b,c,d
+
+def lsm_parameter_visualization(parameter, method='GN', data='data1', model='model1'):
+    result_len = len(parameter)
+    a, b, c, d = split_parameter(parameter)
+    x, y = summarize(a, int(result_len/25))
+    plt.plot(x, y, label='a', marker='o')
+    x, y = summarize(b, int(result_len/25))
+    plt.plot(x, y, label='b', marker='v')
+    x, y = summarize(c, int(result_len/25))
+    plt.plot(x, y, label='c', marker='s')
+    x, y = summarize(d, int(result_len/25))
+    plt.plot(x, y, label='d', marker='*')
+    plt.legend()
+    plt.savefig('multivariate_optimization/results/lsm/parameter_' + method + data + model +'.png')
+    plt.cla()
+
+def lsm_function_value_visualization(results, method='GN', data='data1', model='model1'):
+    result_len = len(results)
+    x, y = summarize(results, int(result_len/25))
+    plt.plot(x, y, label='residual', marker='o', markersize=8)
+    plt.legend()
+    plt.savefig('multivariate_optimization/results/lsm/residual_'  + method + data + model +'.png')
+    plt.cla()
+
 def cgm_function_value_visualization(fr, hs, pr, problem='1', type=''):
     result_len = max(len(fr), len(hs), len(pr))
     x, y = summarize(fr, int(result_len/25))
