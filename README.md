@@ -16,7 +16,7 @@ Here's various optimization techniques from univariate to multivariate problems,
     * Non-Smooth Function (Nelder-Mead method, Powell's method)
     * Gradient-based Method (Steepest Descent, Newton's method, Two Quasi Newton's method(SR1, BFGS))
     * Conjugate-Gradient Method (linear, nonlinear: CG-FR, CG-PR, CG-HS)
-    * Least Square Methods([code](https://github.com/rlax59us/Numerical_Optimization/tree/main/least_square_methods))
+    * Least Square Methods
         * Gauss-Newton's method
         * Levenberg-Marquardt method
 

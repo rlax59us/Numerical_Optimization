@@ -154,12 +154,14 @@ def lsm_parameter_visualization(parameter, method='GN', data='data1', model='mod
     plt.savefig('multivariate_optimization/results/lsm/parameter_' + method + data + model +'.png')
     plt.cla()
 
-def lsm_function_value_visualization(results, method='GN', data='data1', model='model1'):
-    result_len = len(results)
-    x, y = summarize(results, int(result_len/25))
-    plt.plot(x, y, label='residual', marker='o', markersize=8)
+def lsm_function_value_visualization(results1, results2, method='GN', model='model1'):
+    result_len = len(results1)
+    x, y = summarize(results1, int(result_len/25))
+    plt.plot(x, y, label='data1', marker='o', markersize=8)
+    x, y = summarize(results2, int(result_len/25))
+    plt.plot(x, y, label='data2', marker='v', markersize=8)
     plt.legend()
-    plt.savefig('multivariate_optimization/results/lsm/residual_'  + method + data + model +'.png')
+    plt.savefig('multivariate_optimization/results/lsm/residual_'  + method + model +'.png')
     plt.cla()
 
 def cgm_function_value_visualization(fr, hs, pr, problem='1', type=''):
