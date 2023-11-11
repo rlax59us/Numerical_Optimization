@@ -63,11 +63,13 @@ if __name__ == "__main__":
     first_model = model1()
     model1_data1 = model_data(data_type=1, file_name='Model1_Data.txt')
     track_parameter, results1 = gauss_newton(first_model, model1_data1)
+    print(track_parameter[-1])
     lsm_parameter_visualization(track_parameter, method='GN', data='data1', model='model1')
 
     second_model = model1()
     model1_data2 = model_data(data_type=2, file_name='Model1_Data.txt')
     track_parameter, results2 = gauss_newton(second_model, model1_data2)
+    print(track_parameter[-1])
     lsm_parameter_visualization(track_parameter, method='GN', data='data2', model='model1')
 
     lsm_function_value_visualization(results1, results2, method='GN', model='model1')
@@ -75,11 +77,13 @@ if __name__ == "__main__":
     third_model = model2()
     model2_data1 = model_data(data_type=1, file_name='Model2_Data.txt')
     track_parameter, results1 = gauss_newton(third_model, model2_data1)
+    print(track_parameter[-1])
     lsm_parameter_visualization(track_parameter, method='GN', data='data1', model='model2')
     
     fourth_model = model2()
     model2_data2 = model_data(data_type=2, file_name='Model2_Data.txt')
     track_parameter, results2 = gauss_newton(fourth_model, model2_data2)
+    print(track_parameter[-1])
     lsm_parameter_visualization(track_parameter, method='GN', data='data2', model='model2')
 
     lsm_function_value_visualization(results1, results2, method='GN', model='model2')
@@ -88,11 +92,13 @@ if __name__ == "__main__":
     first_model = model1()
     model1_data1 = model_data(data_type=1, file_name='Model1_Data.txt')
     track_parameter, results1 = levenberg_marquardt(first_model, model1_data1)
+    print(track_parameter[-1])
     lsm_parameter_visualization(track_parameter, method='LM', data='data1', model='model1')
 
     second_model = model1()
     model1_data2 = model_data(data_type=2, file_name='Model1_Data.txt')
     track_parameter, results2 = levenberg_marquardt(second_model, model1_data2)
+    print(track_parameter[-1])
     lsm_parameter_visualization(track_parameter, method='LM', data='data2', model='model1')
 
     lsm_function_value_visualization(results1, results2, method='LM', model='model1')
@@ -100,11 +106,13 @@ if __name__ == "__main__":
     third_model = model2()
     model2_data1 = model_data(data_type=1, file_name='Model2_Data.txt')
     track_parameter, results1 = levenberg_marquardt(third_model, model2_data1)
+    print(track_parameter[-1])
     lsm_parameter_visualization(track_parameter, method='LM', data='data1', model='model2')
     
     fourth_model = model2()
     model2_data2 = model_data(data_type=2, file_name='Model2_Data.txt')
     track_parameter, results2 = levenberg_marquardt(fourth_model, model2_data2)
+    print(track_parameter[-1])
     lsm_parameter_visualization(track_parameter, method='LM', data='data2', model='model2')
 
     lsm_function_value_visualization(results1, results2, method='LM', model='model2')
