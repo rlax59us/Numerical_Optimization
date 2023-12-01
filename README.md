@@ -22,8 +22,8 @@ Here's various optimization techniques from univariate to multivariate problems,
 
 
 * Constrained Optimization([code]())
-    * 
+    * https://aleksandarhaber.com/solve-constrained-optimization-problems-in-python-by-using-scipy-library-and-minimize-function/
 
 
 * Global Optimization([code]())
-    * 
+    * I will update Genetic Algorithms in this [repository](https://github.com/rlax59us/Genetic_Algorithms)
