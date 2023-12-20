@@ -21,9 +21,9 @@ Here's various optimization techniques from univariate to multivariate problems,
         * Levenberg-Marquardt method
 
 
-* Constrained Optimization([code]())
-    * https://aleksandarhaber.com/solve-constrained-optimization-problems-in-python-by-using-scipy-library-and-minimize-function/
+* Constrained Optimization
+    * I will update it later
 
 
-* Global Optimization([code]())
+* Global Optimization
     * I will update Genetic Algorithms in this [repository](https://github.com/rlax59us/Genetic_Algorithms)
